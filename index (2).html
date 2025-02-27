@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/281/281761.png" type="image/x-icon">
+    <!-- <title>Google Sheet</title> -->
+    
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .icon{
+            display: flex;
+            position: sticky;
+            top:0px;
+            justify-content: top;
+            align-items: center;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .box3 ul li{
+            display: inline;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid black;
+            border-radius: 4px;
+        }
+        .box2{
+            padding: 10px;
+            margin: 10px;
+            /* border: 1px solid black; */
+            /* border-radius: 4px; */
+        }
+        .box3{
+            padding: 10px;
+            margin: 10px;
+            /* border: 1px solid black;
+            border-radius: 4px; */
+        }
+        .toolbar ul li{
+            display: inline;
+            justify-content: space-around;
+            padding: 0px;
+        }
+        .toolbar {
+            display: flex;
+            position: sticky;
+            top: 50px;
+            align-items: center;
+            background: rgb(242, 240, 240);
+            padding: 0px;
+            border: 1px solid #ddd;
+            border-radius: 100px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .toolbar button, .toolbar select, .toolbar input {
+            margin: 0 5px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .toolbar button:hover {
+            background: #e0e0e0;
+        }
+
+        .icone{
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+        .menu-bar {
+            display: inline;
+            padding: 0px;
+            margin: 0px;
+            gap: 10px;
+        }
+
+        .menu-bar button {
+            display: inline;;
+            background: white;
+            border: 1px solid transparent;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 4px;
+        }
+
+        .menu-bar button:hover {
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+        }
+        .box2{
+            padding: 0px;
+        }
+        .box2 button {
+            background: white;
+            border: 1px solid transparent;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 3px;
+        }
+        .box2 button:hover {
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+        }
+        .active-cell-data{
+            height: 30px;
+            display: flex;
+            align-items: center;
+            padding-inline: 20px;
+            gap: 20px;
+        }
+        .active-cell-data > input {
+            border: none;
+            outline: none;
+            padding-inline: 2px;
+            height: 80%;
+        }
+.address-bar {
+    width: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    height: 80%;
+}
+.formula-icon {
+    width: 1.2rem;
+}
+.formula-bar {
+    flex: 1;
+}
+
+.grid{
+    flex: 1;
+    overflow: auto;
+    position: sticky;
+    left: 0;
+}
+.grid-header{
+    display: flex;
+    width: fit-content;
+    position: sticky;
+    top: 0;
+    z-index: 4;
+}
+.grid-header> :first-child{
+    min-width: 70px;
+    background-color: rgb(190, 188, 188);
+    position: sticky;
+    z-index: 3;
+    left: 0;
+}
+.grid-header-col{
+    min-width: 100px;
+    max-width: 100px;
+    padding: 5px 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(190, 188, 188);
+    font-weight: 900;
+}
+.row{
+    display: flex;
+    width: fit-content;
+}
+.grid-cell{
+    min-width: 100px;
+    max-width: 100px;
+    padding: 5px 2px;
+    border: 1px solid rgb(190, 188, 188);
+    word-wrap: normal;
+}
+
+.row> :first-child{
+    min-width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+
+    position: sticky;
+    left: 0;
+    z-index: 2;
+}
+.grid>*>*{
+    background-color: white;
+    color: black;
+}
+.cell-focus:focus{
+    border: 1.6px dashed rgb(96, 95, 95);
+    outline: none;
+    position: relative;
+    z-index: 1;
+}
+.row-col-focus{
+    background-color: green;
+    color: white;
+    border: 1px solid black;
+}
+.footer{
+    padding: 10px 0;
+    background-color: rgb(224, 223, 223);
+    display: flex;
+    position: sticky;
+    bottom : 0;
+    width: 100%;
+    align-items: center;
+    overflow-x: auto;
+    gap: 20px;
+}
+
+.new-sheet{
+    background-color: rgb(224, 223, 223);
+    padding-inline: 10px;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+}
+
+.sheet-menu{
+    padding: 5px 10px;
+    border-radius: 3px;
+    flex: 0 0 auto;
+    /* text-decoration: underline; */
+    font-weight: bold;
+    cursor: pointer;
+    color: rgb(91, 90, 90);
+}
+
+.active-sheet{
+    color: black;
+    background-color: rgb(184, 181, 181);
+}
+
+.sheet-menu:hover{
+    color: black;
+    background-color: rgb(184, 181, 181);
+}
+.toolbar input{
+    border: 1px solid #ddd;
+    border-radius: 23px;
+}
+</style>
+</head>
+<body>
+        <div class="icon">
+            <img src="img.jpg" alt="" style="margin-right: 1px;">
+            <div>
+                <div class="box2">
+                    <button style="font-size: 34px;">Untitled spreadsheet</button>
+                    <button style="font-size: 34px;">☆</button>
+                </div>
+                <div class="menu-bar">
+                    <button>File</button>
+                    <button>Edit</button>
+                    <button>View</button>
+                    <button>Insert</button>
+                    <button>Format</button>
+                    <button>Data</button>
+                    <button>Tools</button>
+                    <button>Add-ons</button>
+                    <button>Help</button>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="toolbar">
+            <ul>
+                <li>Search Menus</li>
+                <li>Undo</li>
+                <li>Redo</li>
+                <li>Print</li>
+                <li>Paint Format</li>
+                <li>Zoom</li>
+                <li>Format as currency</li>
+                <li>Format as per cent</li>
+                <li>Decrease decimal places</li>
+                <li>Increase decimal places</li>
+                <li>More Formats</li>
+                <li>Font</li>
+                <li>Decrease font size</li>
+                <li>Font Size Display Box</li>
+                <li>Increase font size</li>
+                <li>Bold</li>
+                <li>Italic</li>
+                <li>Strikethrough</li>
+                <li>Text color</li>
+                <li>Fill colour</li>
+                <li>Borders</li>
+                <li>Merge Cells</li>
+                <li>Select the merge type</li>
+                <li>Horizontal align</li>
+                <li>Vertical Align</li>
+                <li>Text wrapping</li>
+                <li>Text Rotation</li>
+                <li>Insert link</li>
+                <li>Insert comment</li>
+                <li>Insert Chart</li>
+                <li>Create a filter</li>
+                <li>Filter views</li>
+                <li>Functioms</li>
+            </ul>
+        </div> -->
+        <div class="toolbar">
+            ⌕
+            <input type="text" placeholder="Menus" style="padding: 5px; width: 100px;">
+    
+            <button onclick="document.execCommand('undo')"><i data-lucide="undo" class="icon"></i></button>
+            <button onclick="document.execCommand('redo')"><i data-lucide="redo" class="icon"></i></button>
+            <button onclick="window.print()"><i data-lucide="printer" class="icon"></i></button>
+    
+            <select>
+                <option>100%</option>
+                <option>75%</option>
+                <option>50%</option>
+            </select>
+    
+            <button>£</button>
+            <button>%</button>
+            <button>.0</button>
+            <button>.00</button>
+    
+            <select>
+                <option>Default</option>
+                <option>Arial</option>
+                <option>Times New Roman</option>
+            </select>
+    
+            <button>-</button>
+            <input type="number" value="10" style="width: 40px;">
+            <button>+</button>
+    
+            <button onclick="document.execCommand('bold')"><i data-lucide="bold" class="icon"></i></button>
+            <button onclick="document.execCommand('italic')"><i data-lucide="italic" class="icon"></i></button>
+            <button onclick="document.execCommand('strikeThrough')"><i data-lucide="strikethrough" class="icon"></i></button>
+    
+            <button><i data-lucide="paint-bucket" class="icone"></i></button>
+            <button><i data-lucide="align-justify" class="icone"></i></button>
+            <button><i data-lucide="link" class="icon"></i></button>
+            <button><i data-lucide="bar-chart" class="icone"></i></button>
+            <button><i data-lucide="filter" class="icone"></i></button>
+            <button><i data-lucide="sigma" class="icone"></i></button>
+        </div>
+        <div class="active-cell-data">
+            <b class="address-bar" id="active_cell">Null</b>
+            <img class="formula-icon" src="https://img.icons8.com/ios/50/000000/formula-fx.png"/>
+            <input type="text" class="formula-bar">
+        </div>
+        <script>
+            lucide.createIcons();
+        </script>
+        <div class="grid">
+            <div class="grid-header"></div>
+        </div>
+        
+        <div class="footer">
+            <span class="material-icons new-sheet">
+                post_add
+            </span>
+        </div>
+        <script src="./script.js"></script>
+        <script src="./sheet.js"></script>
+        <script src="functionalities.js"></script>
+</body>
+</html>
